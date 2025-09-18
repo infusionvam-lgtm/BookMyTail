@@ -128,7 +128,7 @@ const Booking = () => {
       </div>
           
       {/* Right: Payment */}
-      <div className="md:w-3/5 bg-gray-800 text-white p-4 rounded-lg">
+      <div className="md:w-3/5 bg-text-dark/70 text-white p-4 rounded-lg">
         <h2 className="text-xl font-bold mb-4">Payment</h2>
         {paymentStatus === "loading" ? (
           <Loader />

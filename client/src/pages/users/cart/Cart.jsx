@@ -1,13 +1,27 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 import CartList from "../../../components/cart/CartList.jsx";
 import CartSummary from "../../../components/cart/CartSummary.jsx";
 import Loader from "../../../components/support/Loader.jsx";
 import ErrorMessage from "../../../components/support/ErrorMessage.jsx";
+import { loadCart } from "../../../redux/cart/cartSlice.js";
+import { useEffect } from "react";
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.cart);
+
+  const fetchData = async () => {
+    try {
+          const result = await dispatch(loadCart());
+    } catch (err) {
+      console.error("Error while fetching initial data:", err);
+    }
+  };
+  useEffect(()=>{
+    fetchData()
+  },[dispatch])
 
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;

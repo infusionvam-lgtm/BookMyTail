@@ -3,6 +3,7 @@ import { BASE_URL } from "../routes/utilites";
 
 const api = axios.create({
     baseURL: BASE_URL,
+     withCredentials: true,
 })
 
 api.interceptors.request.use((config) => {

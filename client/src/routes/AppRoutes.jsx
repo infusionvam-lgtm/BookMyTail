@@ -27,8 +27,7 @@ export const AppRoutes = () => {
       <Route element={<MainContent />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/rooms" element={<Rooms />} />
+
 
         {/* Admin Router */}
         <Route element={<ProtectedRouter role="admin" />}>
@@ -41,6 +40,8 @@ export const AppRoutes = () => {
 
         {/* User Router */}
         <Route element={<ProtectedRouter role="user" />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/rooms" element={<Rooms />} />
           <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/bookings" element={<Booking />} />

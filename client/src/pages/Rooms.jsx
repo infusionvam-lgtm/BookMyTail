@@ -62,8 +62,12 @@ const Rooms = () => {
       const res = await axios.get(`${BASE_URL}/rooms/getAll`, { params });
       const { rooms: fetchedRooms } = res.data;
 
-      // ✅ Filter out rooms with no availability
+      // Filter out rooms with no availability
       let filteredRooms = fetchedRooms.filter((r) => r.availableRooms > 0);
+
+      if (guests) {
+  filteredRooms = filteredRooms.filter((r) => r.capacity >= Number(guests));
+}
 
       // Client-side price filter
       if (price) {
@@ -144,7 +148,7 @@ const Rooms = () => {
       </div>
 
       {/* Rooms Section */}
-      <div className="md:w-9/12 m-0 md:m-6 flex flex-col text-text-light">
+      <div className="md:w-9/12 m-0 md:m-2 flex flex-col text-text-light">
         <h1 className="section-title mt-1 mb-4">Available Rooms</h1>
         <div className="flex justify-between items-center">
           {checkIn && checkOut && guests && (

@@ -11,9 +11,11 @@ import {
   LineChart,
   Line,
 } from "recharts";
+import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { metrics } = useSelector((state) => state.bookings);
 
   useEffect(() => {
@@ -98,13 +100,19 @@ const AdminDashboard = () => {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <button className="rounded-2xl shadow-md p-4 sm:p-6 w-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
+          <button 
+          onClick={() => navigate("/admin-rooms?action=add")}
+          className="rounded-2xl shadow-md p-4 sm:p-6 w-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
             ➕ Add Room
           </button>
-          <button className="rounded-2xl shadow-md p-4 sm:p-6 w-full border font-semibold hover:bg-gray-100 transition">
+          <button
+           onClick={() => navigate("/admin-bookings?status=pending")} 
+          className="rounded-2xl shadow-md p-4 sm:p-6 w-full border font-semibold hover:bg-gray-100 transition">
             💳 View Pending Payments
           </button>
-          <button className="rounded-2xl shadow-md p-4 sm:p-6 w-full bg-red-600 text-white font-semibold hover:bg-red-700 transition">
+          <button
+          onClick={() => navigate("/admin-bookings?action=cancel")} 
+          className="rounded-2xl shadow-md p-4 sm:p-6 w-full bg-red-600 text-white font-semibold hover:bg-red-700 transition">
             ❌ Cancel Bookings
           </button>
         </div>

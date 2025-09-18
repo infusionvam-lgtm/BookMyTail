@@ -149,7 +149,7 @@ const CheckoutForm = () => {
   return (
     <form onSubmit={handlePayment} className="space-y-4">
       <div>
-        <div className="border p-2 rounded">
+        <div className="border p-2 rounded text-text-dark bg-white/60">
           <label className="block mb-1">Card Number</label>
           <CardNumberElement
             className="p-2 text-text-light"
@@ -162,7 +162,7 @@ const CheckoutForm = () => {
 
       <div className="flex gap-4">
         <div className="flex-1">
-          <div className="border p-2 rounded">
+          <div className="border p-2 rounded text-text-dark bg-white/60">
             <label className="block mb-1">Expiry Date</label>
             <CardExpiryElement
               className="p-2"
@@ -174,7 +174,7 @@ const CheckoutForm = () => {
 
         </div>
         <div className="flex-1  ">
-          <div className="border p-2 rounded">
+          <div className="border p-2 rounded text-text-dark bg-white/60">
             <label className="block mb-1">CVC</label>
             <CardCvcElement
               className="p-2"

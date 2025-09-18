@@ -73,7 +73,7 @@ const RoomCard = ({ room }) => {
     <div className="border-1 border-gold-primary p-4 rounded shadow flex flex-col min-h-full bg-text-dark/60">
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold pb-1">{room.type}</h2>
-        <p className="text-sm">₹{room.price} / night</p>
+        <p className="text-sm"><span className="font-bold">₹{room.price}</span> / night</p>
       </div>
 
       <div

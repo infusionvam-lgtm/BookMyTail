@@ -45,20 +45,35 @@ const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Load cart
-      .addCase(loadCart.pending, (state) => { state.status = "loading"; })
+      .addCase(loadCart.pending, (state) => {
+         state.status = "loading";
+          state.loading = true; 
+        })
       .addCase(loadCart.fulfilled, (state, action) => {
         state.cart = action.payload?.rooms?.length ? action.payload : null;
         state.status = "succeeded";
+        state.loading = false;
       })
-      .addCase(loadCart.rejected, (state, action) => { state.status = "failed"; state.error = action.payload; })
-
+      .addCase(loadCart.rejected, (state, action) => {
+        state.status = "failed";
+        state.loading = false;
+        state.error = action.payload; 
+      })
       // Save cart
+      .addCase(saveCart.pending, (state) => {
+        state.status = "loading";
+        state.loading = true; // Set loading to true for the save action
+      })
       .addCase(saveCart.fulfilled, (state, action) => {
         state.cart = action.payload?.rooms?.length ? action.payload : null;
         state.status = "succeeded";
+        state.loading = false; // Set loading to false after the action is completed
       })
-      .addCase(saveCart.rejected, (state, action) => { state.status = "failed"; state.error = action.payload; })
-
+      .addCase(saveCart.rejected, (state, action) => {
+        state.status = "failed";
+        state.loading = false;
+        state.error = action.payload;
+      })
       // Clear cart
       .addCase(clearCartReducer.fulfilled, (state) => {
         state.cart = null;

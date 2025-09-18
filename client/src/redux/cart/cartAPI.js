@@ -13,7 +13,7 @@ export const saveCartAPI = async (cartData) => {
     // Check if unauthorized
     if (error.response && error.response.status === 401) {
       // Navigate to login page
-      window.location.href = "/login"; // or use your router navigation if in React Router
+       throw new Error("Unauthorized");
     }
 
     // Re-throw error so calling function can handle it if needed

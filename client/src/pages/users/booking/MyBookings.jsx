@@ -106,17 +106,6 @@ const MyBookings = () => {
         ),
       },
       {
-        header: "grandTotal",
-        accessorKey:"grandTotal",
-                cell: ({ row }) => (
-          <div>
-            <div>Before GST: ₹{row.original.totalPrice - row.original.gst}</div>
-            <div>GST: ₹{row.original.gst}</div>
-            <div className="font-bold">Grand: ₹{row.original.totalPrice}</div>
-          </div>
-        ),
-      },
-      {
         header: "Status",
         accessorKey: "status",
         cell: ({ row }) => {

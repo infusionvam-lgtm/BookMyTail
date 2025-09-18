@@ -8,11 +8,13 @@ export const saveCart = async (req, res) => {
     const { rooms, checkInDate, checkOutDate, guests, mobileNum } = req.body;
     const userId = req.user._id;
 
-    // Allow empty carts
+    // Handle empty cart case: Clear cart and return empty rooms array
     if (!rooms || !Array.isArray(rooms) || rooms.length === 0) {
       await BookingCart.findOneAndDelete({ userId });
       return res.status(200).json({ message: "Cart cleared", rooms: [] });
     }
+
+    // Check if check-in and check-out dates are provided
     if (!checkInDate || !checkOutDate) {
       return res.status(400).json({ message: "Check-in and Check-out dates are required" });
     }
@@ -33,7 +35,7 @@ export const saveCart = async (req, res) => {
           ...r,
           roomType: roomData,                 // we keep roomData so calculateTotals can use .price/.capacity
           count: r.count || 1,
-          // <-- FIX: store guests per room (capacity), not multiplied by count
+          // <-- store guests per room (capacity), not multiplied by count
           guests: r.guests || roomData.capacity,
           lunch: r.lunch ? roomData.services.lunch : 0,
           dinner: r.dinner ? roomData.services.dinner : 0,
@@ -51,7 +53,9 @@ export const saveCart = async (req, res) => {
     // Find existing cart
     let cart = await BookingCart.findOne({ userId });
 
+    // Update existing cart or create a new one
     if (cart) {
+      // If cart exists, update its rooms and other details
       cart.rooms = sanitizedRooms;
       cart.checkInDate = checkInDate;
       cart.checkOutDate = checkOutDate;
@@ -63,6 +67,7 @@ export const saveCart = async (req, res) => {
       cart.grandTotal = grandTotal;
       await cart.save();
     } else {
+      // Create a new cart if no existing cart
       cart = await BookingCart.create({
         userId,
         rooms: sanitizedRooms,
@@ -77,6 +82,7 @@ export const saveCart = async (req, res) => {
       });
     }
 
+    // Return the final cart with populated room details
     const finalCart = await BookingCart.findById(cart._id).populate("rooms.roomType");
     res.status(200).json(finalCart);
   } catch (error) {
@@ -84,11 +90,15 @@ export const saveCart = async (req, res) => {
   }
 };
 
+
 // ===================== GET CART (FOR ALREDAY SELECTED BY USER) =====================
 export const getCart = async (req, res) => {
   try {
     const cart = await BookingCart.findOne({ userId: req.user._id }).populate("rooms.roomType");
-    res.json(cart || { rooms: [] });
+    if (!cart) {
+      return res.json({ rooms: [] });  // Return empty cart (rooms: [])
+    }
+    res.json(cart);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -98,7 +108,7 @@ export const getCart = async (req, res) => {
 export const clearCart = async (req, res) => {
   try {
     await BookingCart.findOneAndDelete({ userId: req.user._id });
-    res.json({ message: "Cart cleared" });
+    res.json({ message: "Cart cleared", rooms: [] });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

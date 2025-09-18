@@ -18,7 +18,7 @@ export default function Navbar({ loggedIn, role, setLoggedIn, setRole }) {
 
 const fetchData = async () => {
   try {
-    await dispatch(loadCart()).unwrap();
+    await dispatch(loadCart());
     await dispatch(fetchUserProfile()).unwrap();
   } catch (err) {
     console.error("Error while fetching initial data:", err);
@@ -34,9 +34,13 @@ const fetchData = async () => {
     navigate("/");
   };
 
-  useEffect(() => {
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    // only fetch if logged in
     fetchData();
-  }, [dispatch]);
+  }
+}, [dispatch, loggedIn]);
 
   const profileImage = profile?.avatar
     ? `${BASE_URL}/upload/${profile.avatar}`
@@ -59,7 +63,7 @@ const fetchData = async () => {
             MyBooking
           </Link>
 
-          <Link to="/cart" className="relative">
+          <Link to="/cart" className="relative nav-link ">
             <BiBed size={24} className="text-gold-primary" />
             {totalRooms > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">

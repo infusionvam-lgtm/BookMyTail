@@ -23,6 +23,10 @@
 .leaflet-container {
   z-index: 1; /* lower than navbar */
 }
+
+
+
+
 /* Optional: base styles */
 @layer base {
   body {
@@ -91,6 +95,5 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
 
 
