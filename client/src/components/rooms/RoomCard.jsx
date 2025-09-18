@@ -9,8 +9,8 @@ import { openRoomModal } from "../../redux/room/roomsSlice.js";
 
 const RoomCard = ({ room }) => {
   const dispatch = useDispatch();
-  const cart = useSelector((s) => s.cart.cart);
   const roomsState = useSelector((s) => s.rooms);
+  const cart = useSelector((s) => s.cart.cart);
 
   const [meals, setMeals] = useState({ lunch: 0, dinner: 0 });
   const [imageLoaded, setImageLoaded] = useState(false);

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 
 
-import CartList from "../../../components/cart/CartList.jsx";
+import CartItem from "../../../components/cart/CartItem.jsx";
 import CartSummary from "../../../components/cart/CartSummary.jsx";
 import Loader from "../../../components/support/Loader.jsx";
 import ErrorMessage from "../../../components/support/ErrorMessage.jsx";
@@ -14,7 +14,7 @@ const Cart = () => {
 
   const fetchData = async () => {
     try {
-          const result = await dispatch(loadCart());
+      await dispatch(loadCart());
     } catch (err) {
       console.error("Error while fetching initial data:", err);
     }
@@ -32,7 +32,7 @@ const Cart = () => {
       <div className="w-full md:w-4/6">
         <h2 className="text-lg font-semibold ms-3 mb-4">Booking Cart</h2>
         <div className="flex flex-col items-center justify-center w-full">
-          <CartList />
+          <CartItem/>
         </div>
       </div>
       <CartSummary className="w-full md:w-2/6" />
