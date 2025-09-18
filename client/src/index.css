@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;700&family=Montserrat:wght@300;400;600&display=swap');
+@import "tailwindcss";
+@theme {
+  /* Colors -> will generate utilities like bg-gold-primary, text-gold-primary */
+  --color-gold-primary: #D4AF37;
+  --color-gold-secondary: #996515;
+  --color-black-primary: #121212;
+  --color-black-secondary: #1E1E1E;
+  --color-text-light: #F5F5F5;
+  --color-text-dark: #333333;
+
+  /* Fonts -> will generate utilities like font-montserrat, font-cormorant */
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-cormorant: "Cormorant Garamond", serif;
+}
+.container{
+  max-width: 1280px;
+    margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.leaflet-container {
+  z-index: 1; /* lower than navbar */
+}
+/* Optional: base styles */
+@layer base {
+  body {
+    @apply font-montserrat text-text-dark bg-black-primary;
+  }
+}
+/* Reusable components */
+@layer components {
+ .btn-primary {
+    @apply bg-gold-primary text-black-primary px-5 py-2 rounded font-bold
+           hover:bg-gold-secondary hover:text-text-light transition h-[45px];
+  }
+  .btn-secondary {
+    @apply bg-black-secondary text-gold-primary px-5 py-2 rounded font-bold
+           hover:bg-black-primary transition;
+  }
+
+  /* Typography */
+  .section-title {
+    @apply text-3xl font-cormorant font-bold text-gold-primary;
+  }
+  .section-para {
+    @apply text-xl font-semibold font-montserrat text-text-light;
+  }
+  .para-title {
+    @apply text-xl font-cormorant font-semibold text-gold-secondary;
+  }
+  .main-title {
+    @apply text-7xl font-cormorant font-bold text-text-light;
+     -webkit-text-stroke: 1px black;
+     text-shadow: 0 0 10px #d4af37, 0 0 10px #D4AF37;
+  }
+  .para {
+    @apply text-base font-montserrat text-text-dark leading-relaxed;
+  }
+
+  /* Navbar Link Hover Fill Effect */
+  .nav-link {
+    @apply relative inline-block px-2 py-1 transition-all duration-200 ease-in-out outline-transparent outline-2 outline-offset-2;
+  }
+  .nav-link::before {
+    content: "";
+    @apply absolute left-0 bottom-0 w-0 h-[3px] transition-all duration-300 rounded-full;
+    background: linear-gradient(to right, white, #D4AF37); 
+    z-index: 0;
+  }
+  .nav-link:hover::before,
+  .nav-link:focus::before,
+  .nav-link:active::before {
+    @apply w-full;
+  }
+  .nav-link:hover,
+  .nav-link:focus,
+  .nav-link:active  {
+    @apply text-gold-primary;
+    
+  }
+}
+
+.slick-prev:before, .slick-next:before {
+    font-family: 'slick';
+    font-size: 25px;
+    line-height: 1;
+    opacity: .75;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+
