@@ -10,7 +10,7 @@ const AdminBookings = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // 🔹 Filters state
+  // Filters state
   const [statusFilter, setStatusFilter] = useState("all");
   const [paymentFilter, setPaymentFilter] = useState("all");
   const [startDate, setStartDate] = useState("");
@@ -21,7 +21,7 @@ const AdminBookings = () => {
   const [page, setPage] = useState(1);
   const perPage = 15;
 
-  // 🔹 Initialize state from URL query params
+  // Initialize state from URL query params
   useEffect(() => {
     const statusParam = searchParams.get("status") || "all";
     const paymentParam = searchParams.get("payment") || "all";
@@ -54,7 +54,7 @@ const AdminBookings = () => {
     }
   }, [searchParams]);
 
-  // 🔹 Sync URL with state
+  // Sync URL with state
   useEffect(() => {
     const params = {};
     if (statusFilter !== "all") params.status = statusFilter;
@@ -79,7 +79,7 @@ const AdminBookings = () => {
     setSearchParams,
   ]);
 
-  // 🔹 Helper: current filters object
+  // Helper: current filters object
   const getCurrentFilters = useCallback(
     () => ({
       status: statusFilter,
@@ -95,7 +95,7 @@ const AdminBookings = () => {
     [statusFilter, paymentFilter, nameFilter, emailFilter, guestsFilter, startDate, endDate, page]
   );
 
-  // 🔹 Fetch data whenever filters change
+  // Fetch data whenever filters change
   const refreshData = useCallback(() => {
     const filters = getCurrentFilters();
     dispatch(loadAllBookings(filters));
@@ -106,7 +106,7 @@ const AdminBookings = () => {
     refreshData();
   }, [refreshData]);
 
-  // 🔹 Clear all filters
+  // Clear all filters
   const clearFilters = () => {
     setStatusFilter("all");
     setPaymentFilter("all");
@@ -118,7 +118,7 @@ const AdminBookings = () => {
     setPage(1);
   };
 
-  // 🔹 Metrics calculation
+  // Metrics calculation
   const totalRooms = useMemo(
     () =>
       allBookings.reduce(

@@ -26,7 +26,6 @@ const AdminReport = () => {
 
   if (!metrics) return <p className="pt-[80px] text-white text-center">Loading...</p>;
 
-  const COLORS = ["#4f46e5", "#10b981", "#f59e0b", "#ef4444", "#6366f1"];
 
   // Safe numeric values with defaults
   const totalBookings = metrics.totalBookings ?? 0;
@@ -113,7 +112,7 @@ const AdminReport = () => {
             >
               {totalBookings > 0 &&
                 [0, 1, 2].map((index) => (
-                  <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                  <Cell key={index}/>
                 ))}
             </Pie>
             <Legend />
